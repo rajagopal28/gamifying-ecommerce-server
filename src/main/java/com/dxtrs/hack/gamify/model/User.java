@@ -1,18 +1,20 @@
 package com.dxtrs.hack.gamify.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "users")
 public class User implements Serializable {
     @Id
     @GeneratedValue
@@ -38,6 +40,21 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String currencyType;
 
-    @Column
+    @Column()
     private Date createdTS;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dob=" + dob +
+                ", state='" + state + '\'' +
+                ", city='" + city + '\'' +
+                ", wallet=" + wallet +
+                ", currencyType='" + currencyType + '\'' +
+                ", createdTS=" + createdTS +
+                '}';
+    }
 }

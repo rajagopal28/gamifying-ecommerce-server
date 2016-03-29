@@ -1,12 +1,15 @@
-spring
-  datasource
-    url=jdbc:mysql://localhost/store_db
-    username=store_admin_user
-    password=G@mi5DWor1D
-    driver-class-name=com.mysql.jdbc.Driver
-  jpa
-    hibernate
-      ddl-auto=create-drop
-      properties
-        hibernate
-          globally_quoted_identifiers=true
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/store_db
+    username: store_admin_user
+    password: G@mi5DWor1D
+    driveClassName: com.mysql.jdbc.Driver
+
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      properties:
+        hibernate:
+          globally_quoted_identifiers: true
