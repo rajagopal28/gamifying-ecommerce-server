@@ -1,6 +1,7 @@
-.gradle/*
-.idea/*
-build/*
+/.gradle/*
+/.gradle/wrapper/*
+/.idea/*
+/build/*
 */test/*
 
 *.iml

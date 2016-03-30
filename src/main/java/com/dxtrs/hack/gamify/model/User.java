@@ -1,5 +1,6 @@
 package com.dxtrs.hack.gamify.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,13 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
+    private String username;
+
+    @JsonIgnore
+    @Column(nullable = false)
+    private String password;
+
     private String lastName;
 
     @Column(nullable = false)
@@ -43,6 +51,9 @@ public class User implements Serializable {
     @Column()
     private Date createdTS;
 
+    @Column()
+    private Date lastUpdatedTS;
+
     @Override
     public String toString() {
         return "User{" +
@@ -55,6 +66,7 @@ public class User implements Serializable {
                 ", wallet=" + wallet +
                 ", currencyType='" + currencyType + '\'' +
                 ", createdTS=" + createdTS +
+                ", lastUpdatedTS=" + lastUpdatedTS +
                 '}';
     }
 }
