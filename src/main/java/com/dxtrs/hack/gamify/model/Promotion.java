@@ -27,10 +27,13 @@ public class Promotion implements Serializable {
     private String promotionCode;
 
     @Column(nullable = false)
+    private Double discount;
+
+    @Column(nullable = false)
     private String appliedOnLevel;
 
     @Column(nullable = false)
-    private String levelType;
+    private String boardType;
 
     @Column()
     private Date createdTS;

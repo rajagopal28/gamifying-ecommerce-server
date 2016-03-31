@@ -32,6 +32,8 @@ public class BoardMapper implements Serializable {
     @Column(nullable = false)
     private long upperLimit;
 
+    private long levelDuration;
+
     @Column()
     private Date createdTS;
 

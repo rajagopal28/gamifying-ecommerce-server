@@ -17,8 +17,6 @@ public class BoardEntry implements Serializable {
 
     private String levelName;
 
-    private long levelAppliedOveSpanOf;
-
     private String boardSegmentType;
 
     private String boardSegmentValue;
