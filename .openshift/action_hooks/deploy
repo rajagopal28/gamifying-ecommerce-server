@@ -1,0 +1,40 @@
+#!/bin/bash
+set -x
+if [ ! -d $OPENSHIFT_DATA_DIR'logs' ]; then
+    echo "Creating logs direcotry at $OPENSHIFT_DATA_DIR"
+    cd $OPENSHIFT_DATA_DIR
+    mkdir logs
+fi
+
+if [ ! -d $OPENSHIFT_DATA_DIR'jdk1.8.0_20' ]; then
+    echo "Installing Java1.8.0_20 in  $OPENSHIFT_DATA_DIR"
+    cd $OPENSHIFT_DATA_DIR
+    wget http://www.java.net/download/jdk8u20/archive/b17/binaries/jdk-8u20-ea-bin-b17-linux-x64-04_jun_2014.tar.gz
+    tar xvf *.tar.gz
+    rm -f *.tar.gz
+fi
+
+if [ ! -d $OPENSHIFT_DATA_DIR'gradle-2.8' ];then
+    echo "$OPENSHIFT_DATA_DIR/gradle-2.8 doesnot exist, creating one"
+    cd $OPENSHIFT_DATA_DIR
+    mkdir gradle
+    echo "Getting gradle-2.8 from repository"
+    wget http://services.gradle.org/distributions/gradle-2.8-bin.zip
+    echo "Unzipping gradle-2.8 in repository"
+    unzip gradle-2.8-bin.zip
+    echo "removing gradle-2.8 file after Unzipping in repository"
+    rm -f gradle-2.8-bin.zip
+fi
+cd $OPENSHIFT_REPO_DIR
+
+echo "Re-Writting the $OPENSHIFT_REPO_DIR/config/application.yml file with server properties"
+config/openshift/compile-properties.sh > config/application.yml
+
+echo "Setting environtal path in PATH entry"
+export JAVA_HOME=$OPENSHIFT_DATA_DIR'jdk1.8.0_20'
+export GRADLE_USER_HOME=$OPENSHIFT_DATA_DIR'gradle'
+export GRADLE_HOME=$OPENSHIFT_DATA_DIR'gradle-2.8'
+export PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$PATH
+
+echo "Building gradle....."
+gradle build
