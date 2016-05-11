@@ -1,5 +1,6 @@
 package com.dxtrs.hack.gamify.controller;
 
+import com.dxtrs.hack.gamify.dto.OrderRequestDTO;
 import com.dxtrs.hack.gamify.model.Order;
 import com.dxtrs.hack.gamify.model.Product;
 import com.dxtrs.hack.gamify.model.User;
@@ -14,6 +15,7 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ProductsController {
 
     @Autowired
@@ -28,63 +30,48 @@ public class ProductsController {
     private OrderRepository orderRepository;
 
 
-    @RequestMapping("/all-categories")
+    @RequestMapping("/api/all-categories")
     public List<String> getCategoryList() {
         return productRepository.getAllCategories();
     }
 
-    @RequestMapping("/all-sub-categories")
+    @RequestMapping("/api/all-sub-categories")
     public List<String> getSubCategoryList(@RequestParam(value = "category", required = true) String categoryId) {
         return productRepository.getAllSubCategories(categoryId);
     }
-    @RequestMapping("/all-products")
+    @RequestMapping("/api/products/all")
     public Iterable<Product> getProductsList() {
         return productRepository.findAll();
     }
 
 
-    @RequestMapping(value="/add-product", method= RequestMethod.GET)
+    @RequestMapping(value="/api/products/add", method= RequestMethod.POST)
     public @ResponseBody
-    Product addNewUser(@RequestParam(value = "productName", required = true) String name,
-                    @RequestParam(value = "category", required = false) String category,
-                    @RequestParam(value = "subCategory", required = true) String subCategory,
-                    @RequestParam(value = "quantity", required = true) Long quantity,
-                    @RequestParam(value = "price", required = true) Double price,
-                    @RequestParam(value = "currencyType", required = true) String currencyType) throws ParseException {
-        Product product = new Product();
-        product.setQuantity(quantity);
-        product.setCurrencyType(currencyType);
-        product.setCategory(category);
-        product.setName(name);
-        product.setPrice(price);
-        product.setSubCategory(subCategory);
+    Product addNewUser(@ModelAttribute() Product product) throws ParseException {
         product.setCreatedTS(GamifierUtil.getCurrentDate());
         product.setLastUpdatedTS(GamifierUtil.getCurrentDate());
         return productRepository.save(product);
     }
 
 
-    @RequestMapping("/buy-product")
-    public Order orderProducts(@RequestParam(value = "productId", required = true) long productId,
-                                @RequestParam(value = "quantity", required = true) long quantity,
-                                @RequestParam(value = "userId", required = true) long userId,
-                                @RequestParam(value = "promotionCode") String promotionCode) {
+    @RequestMapping(value = "/api/orders/add", method = RequestMethod.POST)
+    public Order orderProducts(@ModelAttribute() OrderRequestDTO orderRequest) {
         Order newOrder = new Order();
-        Product product = productRepository.findOne(productId);
-        User buyingUser = userRepository.findOne(userId);
+        Product product = productRepository.findOne(orderRequest.getProductId());
+        User buyingUser = userRepository.findOne(orderRequest.getUserId());
         newOrder.setProduct(product);
         newOrder.setUser(buyingUser);
-        newOrder.setQuantity(quantity);
+        newOrder.setQuantity(orderRequest.getQuantity());
         newOrder.setCreatedTS(GamifierUtil.getCurrentDate());
         newOrder.setLastUpdatedTS(GamifierUtil.getCurrentDate());
-        if(promotionCode != null) {
+        if(orderRequest.getPromotionCode() != null) {
             // do add promotions from promotions repository
         }
         return orderRepository.save(newOrder);
     }
 
 
-    @RequestMapping("/all-customer-orders")
+    @RequestMapping(value = "/api/orders/all", method = RequestMethod.GET)
     public Iterable<Order> getOrdersByCustomer(@RequestParam(value = "userId", required = true) Long userId) {
         User user = new User();
         user.setId(userId);

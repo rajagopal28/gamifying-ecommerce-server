@@ -48,6 +48,9 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String currencyType;
 
+    @JsonIgnore
+    @Transient
+    private String dateOfBirth;
     @Column()
     private Date createdTS;
 
