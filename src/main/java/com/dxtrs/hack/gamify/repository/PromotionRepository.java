@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PromotionRepository extends CrudRepository<Promotion, Long>{
+public interface PromotionRepository extends CrudRepository<Promotion, Long> {
 
     Promotion findByPromotionCode(String promotionCode);
 

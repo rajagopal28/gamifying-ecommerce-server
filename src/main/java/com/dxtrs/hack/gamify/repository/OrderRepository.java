@@ -18,6 +18,10 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     List<Order> findByUser(User user);
 
-    @Query( value = "SELECT COUNT(o.id) FROM orders o WHERE o.user_id = :userId", nativeQuery = true)
+    @Query(value = "SELECT COUNT(o.id) FROM orders o WHERE o.user_id = :userId", nativeQuery = true)
     Long countOfUserOrders(@Param("userId") long userId);
+
+    @Query(value = "SELECT COUNT(o.id), o.user_id FROM orders o group by o.user_id", nativeQuery = true)
+    Long countOfOrders();
+
 }
