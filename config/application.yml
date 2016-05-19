@@ -3,7 +3,10 @@ spring:
     url: jdbc:mysql://localhost:3306/store_db
     username: store_admin_user
     password: G@mi5DWor1D
-    driveClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.jdbc.Driver
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    timeBetweenEvictionRunsMillis: 3600000
 
   jpa:
     database: MYSQL
