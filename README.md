@@ -38,6 +38,7 @@ Following are the major challenges I’ve faced when developing this solution.
 
 ## Preview:
 A small preview of the Application is added below. The following is the order history visualization view, which shows the category and subcategory vise purchasing habits visualization.
+[Live Site](http://dextrousinc.github.io/leaderboard-app/)
 ![screen1](https://file.ac/8o9uwnYZvZQ/image3.png "screen1")
 ![screen2](https://file.ac/8o9uwnYZvZQ/image4.png "screen2")
 
