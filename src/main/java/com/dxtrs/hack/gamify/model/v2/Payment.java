@@ -16,7 +16,7 @@ import java.sql.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "payment")
+@Table(name = "payments")
 public class Payment implements Serializable {
 
     @Id
@@ -35,7 +35,7 @@ public class Payment implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "promotion_id", nullable = true)
-    private Promotion promotion;
+    private RewardPromotion promotion;
 
     @Column()
     private Double amount;

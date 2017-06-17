@@ -13,6 +13,6 @@ public interface RewardPromotionRepository extends CrudRepository<RewardPromotio
 
     List<RewardPromotion> findByCategory(String category);
 
-    @Query(value = "select * from reward_promotions where category = :categoryValue and upper_limit >= :rewardValue and lowerLimit <= :rewardValue", nativeQuery = true)
+    @Query(value = "select * from reward_promotions where category = :categoryValue and upper_limit >= :rewardValue and lower_limit <= :rewardValue", nativeQuery = true)
     RewardPromotion getPromotionForCategoryWithPoints(@Param("categoryValue") String categoryValue,@Param("rewardValue") Double rewardValue);
 }

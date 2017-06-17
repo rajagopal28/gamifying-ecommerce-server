@@ -15,7 +15,7 @@ import java.sql.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "payment")
+@Table(name = "user_rewards")
 public class UserReward implements Serializable {
 
     @Id

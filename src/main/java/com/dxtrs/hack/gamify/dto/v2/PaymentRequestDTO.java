@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PaymentRequestDTO {
-    private long id;
     private String description;
     private Double amount;
     private String category;

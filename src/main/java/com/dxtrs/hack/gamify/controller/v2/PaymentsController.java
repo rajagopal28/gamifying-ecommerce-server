@@ -29,7 +29,7 @@ public class PaymentsController {
     private UserRewardRepository userRewardRepository;
 
     @RequestMapping(value = "/api/payments/add", method = RequestMethod.POST)
-    public Payment orderProducts(@ModelAttribute() PaymentRequestDTO paymentRequest) {
+    public Payment addPayment(@ModelAttribute() PaymentRequestDTO paymentRequest) {
 
         User user = userRepository.findOne(paymentRequest.getUserId());
         Payment payment = paymentRequest.getPayment(user);
@@ -51,9 +51,13 @@ public class PaymentsController {
     }
 
     private Payment applyPromotionsForNewPayment(Payment payment, RewardPromotion promotion) {
-        Double amount = payment.getAmount();
-        amount *= (1-promotion.getDiscount()); // <== discount is always a X/100 value
-        payment.setAmount(amount);
+        if (promotion != null) {
+            Double amount = payment.getAmount();
+            amount *= (1-promotion.getDiscount()); // <== discount is always a X/100 value
+            payment.setAmount(amount);
+
+            payment.setPromotion(promotion);
+        }
         return payment;
     }
 
