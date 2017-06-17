@@ -1,6 +1,5 @@
 package com.dxtrs.hack.gamify.model.v2;
 
-import com.dxtrs.hack.gamify.model.Promotion;
 import com.dxtrs.hack.gamify.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

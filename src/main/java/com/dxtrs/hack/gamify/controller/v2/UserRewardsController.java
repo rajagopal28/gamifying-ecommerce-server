@@ -1,8 +1,10 @@
 package com.dxtrs.hack.gamify.controller.v2;
 
 import com.dxtrs.hack.gamify.model.User;
+import com.dxtrs.hack.gamify.model.v2.CumulativeReward;
 import com.dxtrs.hack.gamify.model.v2.UserReward;
 import com.dxtrs.hack.gamify.repository.UserRepository;
+import com.dxtrs.hack.gamify.repository.v2.CumulativeRewardRepository;
 import com.dxtrs.hack.gamify.repository.v2.UserRewardRepository;
 import com.dxtrs.hack.gamify.util.GamifierUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class UserRewardsController {
 
     @Autowired
     private UserRewardRepository userRewardRepository;
+
+    @Autowired
+    private CumulativeRewardRepository cumulativeRewardRepository;
 
     @RequestMapping(value = "/api/user-rewards/add", method = RequestMethod.POST)
     public UserReward addCategoryRewardForUser(@RequestParam(value = "category", required = true) String category,
@@ -40,18 +45,28 @@ public class UserRewardsController {
 
     @RequestMapping(value = "/api/user-rewards/all", method = RequestMethod.GET)
     public Iterable<UserReward> getRewardsOfUser() {
-               return userRewardRepository.findAll();
+        return userRewardRepository.findAll();
     }
 
-    @RequestMapping(value = "/api/user-rewards/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/user-rewards/for-user", method = RequestMethod.GET)
     public Iterable<UserReward> getRewardsOfUser(@RequestParam(value = "userId", required = true) Long userId) {
         User user = userRepository.findOne(userId);
 
         return userRewardRepository.findByUser(user);
     }
 
-    @RequestMapping(value = "/api/user-rewards/category", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/user-rewards/for-category", method = RequestMethod.GET)
     public Iterable<UserReward> getRewardsOfCategory(@RequestParam(value = "category", required = true) String category) {
         return userRewardRepository.findByCategory(category);
+    }
+
+
+    @RequestMapping(value = "/api/user-rewards/cumulative", method = RequestMethod.GET)
+    public Iterable<CumulativeReward> getCumulativeRewardsOfCategory(@RequestParam(value = "category", required = false, defaultValue = "") String category) {
+        if (!category.isEmpty()) {
+            return cumulativeRewardRepository.getCumulativeForCategory(category);
+        } else {
+            return cumulativeRewardRepository.getCumulativeByUser();
+        }
     }
 }
