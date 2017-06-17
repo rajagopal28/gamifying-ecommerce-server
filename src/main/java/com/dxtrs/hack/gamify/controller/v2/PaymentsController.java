@@ -38,7 +38,9 @@ public class PaymentsController {
         RewardPromotion promotion = rewardPromotionRepository.getPromotionForCategoryWithPoints(payment.getCategory(), existingReward.getValue());
 
         applyPromotionsForNewPayment(payment, promotion);
-        updateRewardPointsAndPromotionsForPayment(payment, existingReward, promotion);
+
+        UserReward updatedReward = updateRewardPointsAndPromotionsForPayment(payment, existingReward, promotion);
+        userRewardRepository.save(updatedReward);
 
         return paymentRepository.save(payment);
     }
@@ -53,7 +55,7 @@ public class PaymentsController {
     private Payment applyPromotionsForNewPayment(Payment payment, RewardPromotion promotion) {
         if (promotion != null) {
             Double amount = payment.getAmount();
-            amount *= (1-promotion.getDiscount()); // <== discount is always a X/100 value
+            amount *= (1 - promotion.getDiscount()); // <== discount is always a X/100 value
             payment.setAmount(amount);
 
             payment.setPromotion(promotion);
@@ -64,9 +66,10 @@ public class PaymentsController {
     private UserReward updateRewardPointsAndPromotionsForPayment(Payment payment, UserReward reward, RewardPromotion promotion) {
         Double amount = payment.getAmount();
         Double existingPoints = reward.getValue();
-        Double currentPoints = promotion.getRewardMultiplier()*amount/2; // <== current logic is reward point is half the value of purchase amount
+        Double promotionalMultiplier = promotion != null ? promotion.getRewardMultiplier() : 1;
+        Double currentPoints = promotionalMultiplier * amount / 2; // <== current logic is reward point is half the value of purchase amount
 
-        reward.setValue(existingPoints+currentPoints);
+        reward.setValue(existingPoints + currentPoints);
         return reward;
     }
 
