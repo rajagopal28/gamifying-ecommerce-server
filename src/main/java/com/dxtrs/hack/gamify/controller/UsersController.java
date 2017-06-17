@@ -6,6 +6,7 @@ import com.dxtrs.hack.gamify.util.GamifierUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.text.ParseException;
 
 @RestController
@@ -25,9 +26,10 @@ public class UsersController {
     @ResponseBody
     User addNewUser(@ModelAttribute() User user) throws ParseException {
         user.setDob(GamifierUtil.convertDateFromString(user.getDateOfBirth()));
-        user.setCreatedTS(GamifierUtil.getCurrentDate());
-        user.setLastUpdatedTS(GamifierUtil.getCurrentDate());
-        System.out.println(user);
+        Date now = GamifierUtil.getCurrentDate();
+        user.setCreatedTS(now);
+        user.setLastUpdatedTS(now);
+
         return userRepository.save(user);
     }
 }

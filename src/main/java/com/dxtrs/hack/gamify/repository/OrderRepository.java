@@ -1,6 +1,5 @@
 package com.dxtrs.hack.gamify.repository;
 
-import com.dxtrs.hack.gamify.dto.ChartData;
 import com.dxtrs.hack.gamify.model.Order;
 import com.dxtrs.hack.gamify.model.User;
 import org.springframework.data.jpa.repository.Query;
@@ -12,10 +11,6 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long> {
-
-    Order findByQuantity(String firstName);
-
-    List<Order> findByPromotion(String lastName);
 
     List<Order> findByUser(User user);
 

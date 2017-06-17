@@ -4,7 +4,6 @@ import com.dxtrs.hack.gamify.dto.ChartData;
 import com.dxtrs.hack.gamify.model.BoardEntry;
 import com.dxtrs.hack.gamify.repository.BoardRepository;
 import com.dxtrs.hack.gamify.repository.ChartDataRepository;
-import com.dxtrs.hack.gamify.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
