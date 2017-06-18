@@ -21,4 +21,7 @@ public interface CumulativeRewardRepository extends CrudRepository<CumulativeRew
 
     @Query(value = "select sum(ur.value) as value, FLOOR(10000 + RAND() * 89999) as id, null as category, ur.user_id as user_id from user_rewards ur group by ur.user_id order by value desc ", nativeQuery = true)
     List<CumulativeReward> getCumulativeByUser();
+
+    @Query(value = "SELECT DISTINCT(ur.category) FROM user_rewards ur", nativeQuery = true)
+    List<String> getAllCategories();
 }

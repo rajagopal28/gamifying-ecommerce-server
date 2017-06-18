@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -68,5 +69,9 @@ public class UserRewardsController {
         } else {
             return cumulativeRewardRepository.getCumulativeByUser();
         }
+    }
+    @RequestMapping("/api/v2/categories")
+    public List<String> getCategoryList() {
+        return cumulativeRewardRepository.getAllCategories();
     }
 }
