@@ -28,7 +28,7 @@ public class PaymentsController {
     @Autowired
     private UserRewardRepository userRewardRepository;
 
-    @RequestMapping(value = "/api/payments/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v2/payments/add", method = RequestMethod.POST)
     public Payment addPayment(@ModelAttribute() PaymentRequestDTO paymentRequest) {
 
         User user = userRepository.findOne(paymentRequest.getUserId());
@@ -45,7 +45,7 @@ public class PaymentsController {
         return paymentRepository.save(payment);
     }
 
-    @RequestMapping(value = "/api/payments/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v2/payments/all", method = RequestMethod.GET)
     public Iterable<Payment> getPaymentsByCustomer(@RequestParam(value = "userId", required = true) Long userId) {
         User user = new User();
         user.setId(userId);
@@ -72,15 +72,5 @@ public class PaymentsController {
         reward.setValue(existingPoints + currentPoints);
         return reward;
     }
-
-//    @RequestMapping(value = "/api/payments/users/count", method = RequestMethod.GET)
-//    public List<ChartData> getOrdersByUsersCount() {
-//        return chartDataRepository.countOfOrdersByUsers();
-//    }
-//
-//    @RequestMapping(value = "/api/payments/categories/count", method = RequestMethod.GET)
-//    public List<ChartData> getOrdersByCategoryCount() {
-//        return chartDataRepository.countOfOrdersByCategory();
-//    }
 
 }

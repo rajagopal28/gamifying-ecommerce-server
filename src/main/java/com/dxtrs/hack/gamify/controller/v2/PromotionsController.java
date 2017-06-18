@@ -15,7 +15,7 @@ public class PromotionsController {
     @Autowired
     private RewardPromotionRepository rewardPromotionRepository;
 
-    @RequestMapping(value = "/api/promotions/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v2/promotions/add", method = RequestMethod.POST)
     public RewardPromotion orderProducts(@ModelAttribute() RewardPromotion promotion) {
         Date now = GamifierUtil.getCurrentDate();
         promotion.setCreatedTS(now);
@@ -24,7 +24,7 @@ public class PromotionsController {
         return rewardPromotionRepository.save(promotion);
     }
 
-    @RequestMapping(value = "/api/promotions/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v2/promotions/all", method = RequestMethod.GET)
     public Iterable<RewardPromotion> getAllPromotions() {
         return rewardPromotionRepository.findAll();
     }

@@ -25,7 +25,7 @@ public class UserRewardsController {
     @Autowired
     private CumulativeRewardRepository cumulativeRewardRepository;
 
-    @RequestMapping(value = "/api/user-rewards/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v2/user-rewards/add", method = RequestMethod.POST)
     public UserReward addCategoryRewardForUser(@RequestParam(value = "category", required = true) String category,
                                                @RequestParam(value = "userId", required = true) Long userId,
                                                @RequestParam(value = "rewardPoints", defaultValue = "0.0") Double rewardPoints) {
@@ -43,25 +43,25 @@ public class UserRewardsController {
         return userRewardRepository.save(reward);
     }
 
-    @RequestMapping(value = "/api/user-rewards/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v2/user-rewards/all", method = RequestMethod.GET)
     public Iterable<UserReward> getRewardsOfUser() {
         return userRewardRepository.findAll();
     }
 
-    @RequestMapping(value = "/api/user-rewards/for-user", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v2/user-rewards/for-user", method = RequestMethod.GET)
     public Iterable<UserReward> getRewardsOfUser(@RequestParam(value = "userId", required = true) Long userId) {
         User user = userRepository.findOne(userId);
 
         return userRewardRepository.findByUser(user);
     }
 
-    @RequestMapping(value = "/api/user-rewards/for-category", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v2/user-rewards/for-category", method = RequestMethod.GET)
     public Iterable<UserReward> getRewardsOfCategory(@RequestParam(value = "category", required = true) String category) {
         return userRewardRepository.findByCategory(category);
     }
 
 
-    @RequestMapping(value = "/api/user-rewards/cumulative", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v2/user-rewards/cumulative", method = RequestMethod.GET)
     public Iterable<CumulativeReward> getCumulativeRewardsOfCategory(@RequestParam(value = "category", required = false, defaultValue = "") String category) {
         if (!category.isEmpty()) {
             return cumulativeRewardRepository.getCumulativeForCategory(category);
