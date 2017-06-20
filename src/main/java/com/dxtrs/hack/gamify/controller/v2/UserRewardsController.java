@@ -17,6 +17,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class UserRewardsController {
 
+    private static final String defaultCategory = "All";
+
     @Autowired
     private UserRepository userRepository;
 
@@ -63,11 +65,11 @@ public class UserRewardsController {
 
 
     @RequestMapping(value = "/api/v2/user-rewards/cumulative", method = RequestMethod.GET)
-    public Iterable<CumulativeReward> getCumulativeRewardsOfCategory(@RequestParam(value = "category", required = false, defaultValue = "") String category) {
-        if (!category.isEmpty()) {
-            return cumulativeRewardRepository.getCumulativeForCategory(category);
-        } else {
+    public Iterable<CumulativeReward> getCumulativeRewardsOfCategory(@RequestParam(value = "category", required = false, defaultValue = defaultCategory) String category) {
+        if (defaultCategory.equalsIgnoreCase(category)) {
             return cumulativeRewardRepository.getCumulativeByUser();
+        } else {
+            return cumulativeRewardRepository.getCumulativeForCategory(category);
         }
     }
     @RequestMapping("/api/v2/categories")

@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user_rewards")
+@Table(name = "cumulative_rewards")
 public class CumulativeReward implements Serializable {
     @Id
     @GeneratedValue
@@ -30,5 +30,9 @@ public class CumulativeReward implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "promotion_id", nullable = true)
+    private RewardPromotion promotion;
 
 }
