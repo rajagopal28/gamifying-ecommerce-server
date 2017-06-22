@@ -49,7 +49,7 @@ public class PaymentsController {
     public Iterable<Payment> getPaymentsByCustomer(@RequestParam(value = "userId", required = true) Long userId) {
         User user = new User();
         user.setId(userId);
-        return paymentRepository.findByUser(user);
+        return paymentRepository.findByUserOrderByCreatedTSDesc(user);
     }
 
     private Payment applyPromotionsForNewPayment(Payment payment, RewardPromotion promotion) {

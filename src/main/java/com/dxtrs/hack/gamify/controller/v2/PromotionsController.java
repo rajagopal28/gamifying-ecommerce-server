@@ -26,7 +26,7 @@ public class PromotionsController {
 
     @RequestMapping(value = "/api/v2/promotions/all", method = RequestMethod.GET)
     public Iterable<RewardPromotion> getAllPromotions() {
-        return rewardPromotionRepository.findAll();
+        return rewardPromotionRepository.findAllByOrderByCreatedTSDesc();
     }
 
 }

@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface PaymentRepository extends CrudRepository<Payment, Long> {
-    List<Payment> findByUser(User user);
-    List<Payment> findByCategory(String category);
+    List<Payment> findByUserOrderByCreatedTSDesc(User user);
+    List<Payment> findByCategoryOrderByCreatedTSDesc(String category);
 }

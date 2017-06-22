@@ -48,19 +48,19 @@ public class UserRewardsController {
 
     @RequestMapping(value = "/api/v2/user-rewards/all", method = RequestMethod.GET)
     public Iterable<UserReward> getRewardsOfUser() {
-        return userRewardRepository.findAll();
+        return userRewardRepository.findAllByOrderByCreatedTSDesc();
     }
 
     @RequestMapping(value = "/api/v2/user-rewards/for-user", method = RequestMethod.GET)
     public Iterable<UserReward> getRewardsOfUser(@RequestParam(value = "userId", required = true) Long userId) {
         User user = userRepository.findOne(userId);
 
-        return userRewardRepository.findByUser(user);
+        return userRewardRepository.findByUserOrderByCreatedTSDesc(user);
     }
 
     @RequestMapping(value = "/api/v2/user-rewards/for-category", method = RequestMethod.GET)
     public Iterable<UserReward> getRewardsOfCategory(@RequestParam(value = "category", required = true) String category) {
-        return userRewardRepository.findByCategory(category);
+        return userRewardRepository.findByCategoryOrderByCreatedTSDesc(category);
     }
 
 
