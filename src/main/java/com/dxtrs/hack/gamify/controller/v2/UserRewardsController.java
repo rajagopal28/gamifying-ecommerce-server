@@ -72,6 +72,7 @@ public class UserRewardsController {
             return cumulativeRewardRepository.getCumulativeForCategory(category);
         }
     }
+
     @RequestMapping("/api/v2/categories")
     public List<String> getCategoryList() {
         return cumulativeRewardRepository.getAllCategories();

@@ -54,6 +54,7 @@ public class OrdersController {
         System.out.println(orderRepository.countOfUserOrders(userId));
         return orderRepository.findByUser(user);
     }
+
     @RequestMapping(value = "/api/orders/users/count", method = RequestMethod.GET)
     public List<ChartData> getOrdersByUsersCount() {
         return chartDataRepository.countOfOrdersByUsers();

@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Table(name = "chart_data")
-public class ChartData implements Serializable{
+public class ChartData implements Serializable {
     @Id
     private Long id;
     @Column()

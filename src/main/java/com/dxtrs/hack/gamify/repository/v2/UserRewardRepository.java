@@ -10,7 +10,10 @@ import java.util.List;
 @Repository
 public interface UserRewardRepository extends CrudRepository<UserReward, Long> {
     List<UserReward> findAllByOrderByCreatedTSDesc();
+
     List<UserReward> findByUserOrderByCreatedTSDesc(User user);
+
     List<UserReward> findByCategoryOrderByCreatedTSDesc(String category);
+
     UserReward findByUserAndCategory(User user, String category);
 }
